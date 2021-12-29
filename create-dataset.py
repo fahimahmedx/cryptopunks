@@ -24,14 +24,22 @@ for link in soup.find_all('a'):
         #print(link.get('href'))
         sale_links.append(url)
 
-#print(len(sale_links))
+ids = []
+types = []
+attributeCounts = []
+attributes = []
+sales = []
+offers = []
+bids = []
 
+#try working with most recently sold CryptoPunk
 request = requests.get(base_url + sale_links[0])
 soup = BeautifulSoup(request.text)
 print(soup.title.string)
 
-#details = soup.find(id="punkDetails")
+# ID and type
 details = soup.find("div", class_="col-md-10 col-md-offset-1 col-xs-12")
+id = details.h1.text
 type = details.h4.a.text
 
 #attributes
@@ -62,5 +70,24 @@ offerPrice = details.text
 # recent bid price
 details = soup.select("tr.punk-history-row-bid td:nth-of-type(4)")[0]
 bidPrice = details.text
-
 #print(salePrice, offerPrice, bidPrice)
+
+# append to lists
+ids.append(id)
+types.append(type)
+attributeCounts.append(attributeCount)
+attributes.append(punkAttributes)
+sales.append(salePrice)
+offers.append(offerPrice)
+bids.append(bidPrice)
+
+# Create Dataframe
+cryptoPunks = pd.DataFrame({'ID': ids,
+                            'Type': types,
+                            'Attributes': attributes,
+                            'Attribute Count': attributeCounts,
+                            'Recent Sale Price': sales,
+                            'Recent Offer': offers,
+                            'Recent Bid': bids})
+
+print(cryptoPunks)
