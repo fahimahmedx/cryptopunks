@@ -7,23 +7,6 @@ import numpy as np
 from time import sleep
 from random import randint
 
-page = "https://www.larvalabs.com/cryptopunks/sales"
-request = requests.get(page)
-soup = BeautifulSoup(request.text)
-
-base_url = "https://www.larvalabs.com"
-sale_links = []
-
-# find all cryptopunk links.
-# https://youtu.be/zD0FDYI5_rs
-for link in soup.find_all('a'):
-    url = link.get('href')
-
-    #check if URL exists and if URL is for a cryptopunk
-    if url and '/cryptopunks/details/' in url:
-        #print(link.get('href'))
-        sale_links.append(url)
-
 ids = []
 types = []
 attributeCounts = []
@@ -32,7 +15,28 @@ sales = []
 offers = []
 bids = []
 
-# for each CryptoPunk listed in the recently sold page
+numberOfPages = 5 #webscrape the first 5 pages. 
+sale_links = []
+base_url = "https://www.larvalabs.com"
+
+for i in range(numberOfPages):
+    page_num = i + 1
+    page = "https://www.larvalabs.com/cryptopunks/sales?perPage=96&page=" + str(page_num)
+
+    request = requests.get(page)
+    soup = BeautifulSoup(request.text)
+
+    # find all cryptopunk links in this page.
+    # https://youtu.be/zD0FDYI5_rs
+    for link in soup.find_all('a'):
+        url = link.get('href')
+
+        #check if URL exists and if URL is for a cryptopunk
+        if url and '/cryptopunks/details/' in url:
+            #print(link.get('href'))
+            sale_links.append(url)
+
+# for each link of a CryptoPunk sold
 for sale_link in sale_links:
     request = requests.get(base_url + sale_link)
     soup = BeautifulSoup(request.text)
@@ -101,3 +105,4 @@ cryptoPunks = pd.DataFrame({'ID': ids,
                             'Recent Bid': bids})
 
 print(cryptoPunks)
+cryptoPunks.to_csv('recentlySold.csv', index=False)
