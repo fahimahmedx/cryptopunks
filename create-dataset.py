@@ -15,7 +15,7 @@ sales = []
 offers = []
 bids = []
 
-numberOfPages = 5 #webscrape the first 5 pages. 
+numberOfPages = 50 #webscrape the first 50 pages. 
 sale_links = []
 base_url = "https://www.larvalabs.com"
 
