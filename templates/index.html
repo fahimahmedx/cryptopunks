@@ -11,13 +11,14 @@
 
     <div style="color:blue">
         <form action="{{ url_for('predict')}}" method="post">
-            <h2>Predictive analysis</h2>
+            <h2>CryptoPunk Linear Regression Model</h2>
             <h3>Type (Alien, Ape, Zombie, Female, or Male)</h3>
-            <input id="first" name="Type" type="text">
+            <input id="first" name="Type" type="text" required="required">
+            <h3>Attribute Count</h3>
+            <input id="second" name="AttributeCount" required="required">
             <h3>Attributes</h3>
-            <input id="second" name="Attributes" type="text">
-            <h3>Attribute Count</h3><input id="third" name="Count" required="required">
-            <br><br><button id="sub" type="submit ">Calculate the Selling Price</button>
+            <input id="third" name="Attributes" type="text" required="required">
+            <br><br><button id="sub" type="submit ">Value the NFT</button>
             <br>
 
 
