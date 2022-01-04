@@ -11,7 +11,7 @@ As these CryptoPunk were traded for Ethereum, the decision to make the price val
 Lastly, this linear regression model works well for CryptoPunks that are closer to the average value. That is, CryptoPunks that aren't extremely special and valuable due to a certain rare attribute. This is because of the decision to remove outliers from our dataset, that may have been valued highly because they contained rare attributes.
 
 # Usage
-Rerun create-dataset.py to update the dataset, and the deploy the web application on Heroku.
+Rerun create-dataset.py to update the dataset and rerun the analysis notebook file to update the model, and then deploy the web application on Heroku.
 Alternatively, visit https://cryptopunks-model.herokuapp.com/ for a model trained with data at the time this repository was last updated.
 
 # Credits
